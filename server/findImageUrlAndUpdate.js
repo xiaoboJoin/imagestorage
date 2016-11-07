@@ -19,20 +19,18 @@ fs.readdir(dir, (err, files) => {
             }
             count--;
             if (count == 0) {
-
-
-
                 fs.writeFile(__dirname + '/images.json', JSON.stringify(images), function(err) {
                     if (err)
                         return console.log(err);
                     var list = [];
                     images.forEach(function(item, idx) {
-                        list.push({
-                            name: idx,
-                            url: item,
+                            list.push({
+                                name: idx,
+                                url: item,
+                            })
                         })
-                    })
-                    fetch("http://localhost:3000/image/new/list", {
+                        //199.15.112.103
+                    fetch("http://199.15.112.103:3000/image/new/list", {
                         agent: new HttpsProxyAgent('http://localhost:8888'),
                         method: "POST",
                         headers: {
@@ -41,6 +39,11 @@ fs.readdir(dir, (err, files) => {
                         body: JSON.stringify({
                             images: list,
                         })
+                    }).then(function(res) {
+                        return res.json();
+                    }).
+                    then(function(body) {
+                        console.log(body);
                     })
                 });
             }

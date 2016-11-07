@@ -153,6 +153,7 @@ router.post('/new/list', function(req, res, next) {
     })
     function counter() {
         if (count-- && count == 0) {
+            console.log(images);
             res.send({
                 code: 0,
                 data: {
